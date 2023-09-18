@@ -1,3 +1,4 @@
+#pragma once
 class GameManager {
 private:
 	std::vector<std::function<void()>> logicFunctions;   // List of functions for updating game logic

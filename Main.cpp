@@ -1,31 +1,8 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.11
 
 #include "Ship.h"
+#include "Button.h"
 
-
-class Button
-{
-private:
-	GameManager& gm_;
-	RectF rect_;
-	int index_;
-	std::vector<std::unique_ptr<Ship>> ships_;
-public:
-	Button(GameManager& gm, RectF rect, int index): gm_(gm), rect_(rect), index_(index)
-	{
-
-	}
-	void Click()
-	{
-		rect_.draw();
-		if(rect_.leftClicked())
-		{
-			Print << U"Clicked index{}"_fmt(index_) ;
-			// Ship ship(gm_, Vec2{0,3.0/5.0 * Scene::Height()});
-			ships_.push_back(std::make_unique<Ship>(gm_, Vec2{0, 3.0/5.0 * Scene::Height()}));
-		}
-	}
-};
 
 void Main()
 {
