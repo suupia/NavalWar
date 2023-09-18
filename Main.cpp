@@ -1,32 +1,8 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.11
-#include "GameManager.h"
 
-class Ship
-{
-private:
-	GameManager& gm_;
-	Texture texture_;
-	Vec2 pos_;
-	int speed_;
-public:
-	Ship(GameManager& gm, const Vec2& pos): gm_(gm), texture_(U"🚢"_emoji), pos_(pos), speed_(100)
-	{
-		gm_.registerLogic([&]() {UpdateLogic(); });
-		gm_.registerRender([&]() {UpdateRender(); });
+#include "Ship.h"
 
-	}
-	void UpdateLogic()
-	{
-		pos_.x += speed_ * Scene::DeltaTime();
 
-	}
-
-	void UpdateRender()
-	{
-		texture_.draw(Arg::bottomCenter(pos_));
-
-	}
-};
 class Button
 {
 private:
