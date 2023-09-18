@@ -17,7 +17,7 @@ void Main()
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 
 	// place buttons
-	Array<Button> buttons;
+	std::vector<std::unique_ptr<Button>> buttons;
 	int columNum = 4;
 	int rowNum = 2;
 	double width =(3.0 / 5.0 * Scene::Width()  / columNum );
@@ -32,7 +32,7 @@ void Main()
 	{
 		for(int j = 0; j< columNum; j++)
 		{
-			buttons.push_back(Button(gm,RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody},font, j + i * columNum));
+			buttons.push_back(std::make_unique<Button>(gm,RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody},font, j + i * columNum));
 		}
 	}
 
@@ -47,7 +47,7 @@ void Main()
 
 		for(auto& button : buttons)
 		{
-			button.Click();
+			button ->Click();
 		}
 
 		gm.updateLogic();
