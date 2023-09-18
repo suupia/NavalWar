@@ -13,6 +13,9 @@ void Main()
 
 	GameManager gm;
 
+	// Font
+	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+
 	// place buttons
 	Array<Button> buttons;
 	int columNum = 4;
@@ -29,7 +32,7 @@ void Main()
 	{
 		for(int j = 0; j< columNum; j++)
 		{
-			buttons.push_back(Button(gm,RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody}, j + i * columNum));
+			buttons.push_back(Button(gm,RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody},font, j + i * columNum));
 		}
 	}
 
@@ -49,8 +52,6 @@ void Main()
 
 		gm.updateLogic();
 		gm.updateRender();
-
-
 
 	}
 }

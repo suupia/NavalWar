@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "GameManager.h"
+#include "GameObject.h"
 
-class Ship
+class Ship : GameObject
 {
 private:
 	GameManager& gm_;
