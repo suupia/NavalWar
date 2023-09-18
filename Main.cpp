@@ -1,44 +1,5 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.11
-
-
-class GameManager {
-private:
-	std::vector<std::function<void()>> logicFunctions;   // List of functions for updating game logic
-	std::vector<std::function<void()>> renderFunctions;  // List of functions for rendering graphics
-
-public:
-	// Register a function for updating game logic
-	void registerLogic(const std::function<void()>& func) {
-		logicFunctions.push_back(func);
-	}
-
-	// Register a function for rendering graphics
-	void registerRender(const std::function<void()>& func) {
-		renderFunctions.push_back(func);
-	}
-
-	// Execute all the registered functions for updating game logic
-	void updateLogic() {
-		for (const auto& func : logicFunctions) {
-			if (func) {
-				func();
-			} else {
-				Print << U"A logic function is invalid!" ;
-			}
-		}
-	}
-
-	// Execute all the registered functions for rendering graphics
-	void updateRender() {
-		for (const auto& func : renderFunctions) {
-			if (func) {
-				func();
-			} else {
-				Print << U"A render function is invalid!";
-			}
-		}
-	}
-};
+#include "GameManager.h"
 
 class Ship
 {
