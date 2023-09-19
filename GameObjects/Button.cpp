@@ -18,6 +18,6 @@ void Button::UpdateLogic()
  }
 void Button::UpdateRender()
 {
-	font_(index_).draw(30, rect_.x , rect_.y , Palette::Black);
-	// Print << U"Drawing button with index: " << index_;
+	font_(U"index:{}"_fmt(index_)).draw(30, rect_.x , rect_.y , Palette::Black);
+	font_(U"cost:{}"_fmt(100)).draw(30, rect_.x , rect_.y + 30 , Palette::Black);
 }
