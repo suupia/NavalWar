@@ -5,8 +5,10 @@ private:
 	std::vector<std::function<void()>> renderFunctions;  // List of functions for rendering graphics
 
 public:
-	void registerLogic(const std::function<void()>& func);
-	void registerRender(const std::function<void()>& func);
+	int registerLogic(const std::function<void()>& func);
+	int registerRender(const std::function<void()>& func);
+	void unregisterLogic(int id);
+	void unregisterRender(int id);
 	void updateLogic();
 	void updateRender();
 

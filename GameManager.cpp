@@ -1,33 +1,37 @@
 #include "GameManager.h"
 
-// Register a function for updating game logic
-void GameManager::registerLogic(const std::function<void()>& func) {
-	logicFunctions.push_back(func);
+// コールバックの登録時にユニークなIDを返す
+int GameManager::registerLogic(const std::function<void()>& func) {
+	logicFunctions.emplace_back(func);
+	return logicFunctions.size() - 1; // IDはインデックスとする
 }
 
-// Register a function for rendering graphics
-void GameManager::registerRender(const std::function<void()>& func) {
-	renderFunctions.push_back(func);
+int GameManager::registerRender(const std::function<void()>& func) {
+	renderFunctions.emplace_back(func);
+	return renderFunctions.size() - 1; // IDはインデックスとする
 }
 
-// Execute all the registered functions for updating game logic
+// IDを使用して、特定のコールバックを削除する
+void GameManager::unregisterLogic(int id) {
+	logicFunctions[id] = nullptr; // 関数を無効にする
+}
+
+void GameManager::unregisterRender(int id) {
+	renderFunctions[id] = nullptr; // 関数を無効にする
+}
+
 void GameManager::updateLogic() {
 	for (const auto& func : logicFunctions) {
 		if (func) {
 			func();
-		} else {
-			Print << U"A logic function is invalid!" ;
 		}
 	}
 }
 
-// Execute all the registered functions for rendering graphics
 void GameManager::updateRender() {
 	for (const auto& func : renderFunctions) {
 		if (func) {
 			func();
-		} else {
-			Print << U"A render function is invalid!";
 		}
 	}
 }

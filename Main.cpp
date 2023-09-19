@@ -1,23 +1,40 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.11
 
-#include "Ship.h"
-#include "Button.h"
+
+#include "GameObjects/Ship.h"
+#include "GameManager.h"
+#include "GameObjects/SortieButton.h"
+#include "GameObjects/Currency.h"
 
 
 void Main()
 {
-	Window::Resize(1920, 1080);
+	constexpr  int windowWidth = 1920;
+	constexpr  int windowHeight = 1080;
+	if(windowWidth * 9 != windowHeight * 16)
+	{
+		throw Error(U"You should set the resolution to 16:9");
+	}
+	Window::Resize(windowWidth, windowHeight);
 	Window::SetStyle(WindowStyle::Sizable);
 
 	Scene::SetBackground(Palette::Lightblue);
 
 	GameManager gm;
+	std::vector<std::unique_ptr<Ship>> ships_;
+
+
+	// Font
+	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+
+	// Currency
+	Currency currency(gm, font, 0, 1.0);
 
 	// place buttons
-	Array<Button> buttons;
+	std::vector<std::unique_ptr<SortieButton>> buttons;
 	int columNum = 4;
 	int rowNum = 2;
-	double width =(3.0 / 5.0 * Scene::Width()  / columNum );
+	double width =3.0 / 5.0 * Scene::Width()  / columNum;
 	double widthBody = 8.0 /10.0 * width;
 	double widthMargin = 2.0 / 10.0 * width / 2.0;
 	double height = 2.0 / 5.0 * Scene::Height()  / rowNum;
@@ -29,13 +46,10 @@ void Main()
 	{
 		for(int j = 0; j< columNum; j++)
 		{
-			buttons.push_back(Button(gm,RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody}, j + i * columNum));
+			auto rect = RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody};
+			buttons.push_back(std::make_unique<SortieButton>(gm,rect,font, j + i * columNum));
 		}
 	}
-
-
-
-	Ship ship(gm,Vec2{0,3.0/5.0 * Scene::Height()});
 
 	while (System::Update())
 	{
@@ -44,13 +58,11 @@ void Main()
 
 		for(auto& button : buttons)
 		{
-			button.Click();
+			button ->Click();
 		}
 
 		gm.updateLogic();
 		gm.updateRender();
-
-
 
 	}
 }
