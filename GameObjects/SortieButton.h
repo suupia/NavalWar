@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Ship.h"
 
-class Button : GameObject
+class SortieButton : GameObject
 {
 private:
 	GameManager& gm_;
@@ -13,7 +13,7 @@ private:
 	std::vector<std::unique_ptr<Ship>> ships_;
 
 public:
-	Button(GameManager& gm, RectF rect, const Font& font, int index)
+	SortieButton(GameManager& gm, RectF rect, const Font& font, int index)
 		: gm_(gm), rect_(rect), index_(index), font_(font)
 	{
 		// Print << U"Button index{}"_fmt(index_);

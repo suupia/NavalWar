@@ -117,7 +117,7 @@
   <ItemGroup>
     <ClCompile Include="Font\FontSize.cpp" />
     <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="GameObjects\Button.cpp">
+    <ClCompile Include="GameObjects\SortieButton.cpp">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -631,7 +631,7 @@
   <ItemGroup>
     <ClInclude Include="Font\FontSize.h" />
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="GameObjects\Button.h" />
+    <ClInclude Include="GameObjects\SortieButton.h" />
     <ClInclude Include="GameObjects\Currency.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Ship.h" />
