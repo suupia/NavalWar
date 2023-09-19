@@ -9,6 +9,8 @@ void SortieButton::UpdateLogic()
 	{
 		Print << U"Button Logic index{}"_fmt(index_);
 		Print << U"ships size: {}"_fmt(ships_.size());
+		Print << U"ships is empty: {}"_fmt(ships_.empty());
+		//Ship(gm_, Vec2{0, 3.0/5.0 * Scene::Height()});
 		// ships_.push_back(std::make_unique<Ship>(gm_, Vec2{0, 2.0/5.0 * Scene::Height()}));  // 単体だとバグる。Clickにもあるとなぜが動く
 		// std::make_unique<Ship>(gm_, Vec2{0, 2.0/5.0 * Scene::Height()}); // バグる
 		// Ship(gm_, Vec2{0, 2.0/5.0 * Scene::Height()}); // バグる
@@ -29,6 +31,6 @@ void SortieButton::Click()
 	{
 		Print << U"Clicked index{}"_fmt(index_) ;
 		ships_.push_back(std::make_unique<Ship>(gm_, Vec2{0, 3.0/5.0 * Scene::Height()}));
-
+		//std::make_unique<Ship>(gm_, Vec2{0, 3.0/5.0 * Scene::Height()});
 	}
 }

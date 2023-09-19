@@ -3,7 +3,7 @@
 
 void Currency::UpdateLogic()
 {
-	amount_ += amouontPerSecond_ * Scene::DeltaTime();
+	amount_ += amountPerSecond_ * Scene::DeltaTime();
 }
 void  Currency::UpdateRender()
 {

@@ -21,6 +21,8 @@ void Main()
 	Scene::SetBackground(Palette::Lightblue);
 
 	GameManager gm;
+	std::vector<std::unique_ptr<Ship>> ships_;
+
 
 	// Font
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
