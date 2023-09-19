@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "GameManager.h"
+#include "../GameManager.h"
+#include "GameObject.h"
 #include "Ship.h"
 
 class Button : GameObject

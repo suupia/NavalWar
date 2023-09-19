@@ -1,7 +1,9 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.11
 
-#include "Ship.h"
-#include "Button.h"
+
+#include "GameObjects/Ship.h"
+#include "GameManager.h"
+#include "GameObjects/Button.h"
 
 
 void Main()
