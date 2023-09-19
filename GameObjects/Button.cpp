@@ -1,6 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "Button.h"
 #include "Ship.h"
+#include "../Font/FontSize.h"
 
 void Button::Click()
 {
@@ -18,6 +19,6 @@ void Button::UpdateLogic()
  }
 void Button::UpdateRender()
 {
-	font_(U"index:{}"_fmt(index_)).draw(30, rect_.x , rect_.y , Palette::Black);
-	font_(U"cost:{}"_fmt(100)).draw(30, rect_.x , rect_.y + 30 , Palette::Black);
+	font_(U"index:{}"_fmt(index_)).draw(FontSize::GetFontSize(0), rect_.x , rect_.y , Palette::Black);
+	font_(U"cost:{}"_fmt(100)).draw(FontSize::GetFontSize(0), rect_.x , rect_.y + 30 , Palette::Black);
 }

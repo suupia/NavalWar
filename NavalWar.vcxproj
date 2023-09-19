@@ -115,6 +115,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Font\FontSize.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObjects\Button.cpp">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -628,6 +629,7 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Font\FontSize.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects\Button.h" />
     <ClInclude Include="GameObjects\Currency.h" />
