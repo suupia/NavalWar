@@ -4,6 +4,7 @@
 #include "GameObjects/Ship.h"
 #include "GameManager.h"
 #include "GameObjects/Button.h"
+#include "GameObjects/Currency.h"
 
 
 void Main()
@@ -17,6 +18,9 @@ void Main()
 
 	// Font
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+
+	// Currency
+	Currency currency(gm, font, 0, 1.0);
 
 	// place buttons
 	std::vector<std::unique_ptr<Button>> buttons;
@@ -37,10 +41,6 @@ void Main()
 			buttons.push_back(std::make_unique<Button>(gm,RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody},font, j + i * columNum));
 		}
 	}
-
-
-
-	Ship ship(gm,Vec2{0,3.0/5.0 * Scene::Height()});
 
 	while (System::Update())
 	{
