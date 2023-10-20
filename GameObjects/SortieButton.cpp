@@ -22,6 +22,13 @@ void SortieButton::Click()
 	if(rect_.leftClicked())
 	{
 		Print << U"Clicked index{}"_fmt(index_) ;
+		const int tmp_cost = 5;
+		if(currency_.GetAmount() < tmp_cost)
+		{
+			Print << U"Not enough money";
+			return;
+		}
 		shipContainer_.AddShip(std::make_unique<Ship>(gm_, Vec2{0, 3.0/5.0 * Scene::Height()}));
+		currency_.AddAmount(-tmp_cost);
 	}
 }

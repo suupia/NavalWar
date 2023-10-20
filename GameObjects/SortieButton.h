@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Currency.h"
 #include "../GameManager.h"
 #include "GameObject.h"
 #include "Ship.h"
@@ -12,12 +13,13 @@ private:
 	const Font& font_;
 	int index_;
 	ShipContainer& shipContainer_;
+	Currency& currency_;
 	int logicId_;
 	int renderId_;
 
 public:
-	SortieButton(GameManager& gm,ShipContainer& ship_container, RectF rect, const Font& font, int index)
-		: gm_(gm),shipContainer_(ship_container), rect_(rect), index_(index), font_(font)
+	SortieButton(GameManager& gm,ShipContainer& ship_container,Currency& currency,  RectF rect, const Font& font, int index)
+		: gm_(gm),shipContainer_(ship_container),currency_(currency), rect_(rect), index_(index), font_(font)
 	{
 		// Register functions and save their IDs
 		logicId_ = gm_.registerLogic([this]() { this->UpdateLogic(); });

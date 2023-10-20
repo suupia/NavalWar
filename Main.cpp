@@ -53,7 +53,7 @@ void Main()
 		for(int j = 0; j< columNum; j++)
 		{
 			auto rect = RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody};
-			buttons.push_back(std::make_unique<SortieButton>(gm,shipContainer, rect,font, j + i * columNum));
+			buttons.push_back(std::make_unique<SortieButton>(gm,shipContainer,currency, rect,font, j + i * columNum));
 		}
 	}
 
