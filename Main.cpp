@@ -1,10 +1,11 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.11
 
 
-#include "GameObjects/Ship.h"
 #include "GameManager.h"
+#include "GameObjects/Ship.h"
 #include "GameObjects/SortieButton.h"
 #include "GameObjects/Currency.h"
+#include "GameObjects/ShipContainer.h"
 
 
 void Main()
@@ -30,6 +31,11 @@ void Main()
 	// Currency
 	Currency currency(gm, font, 0, 1.0);
 
+
+	// ShipContainer
+	ShipContainer shipContainer(gm, RectF{0, 0, Scene::Width(), 3.0 /5.0 * Scene::Height()}, font, 0);
+
+
 	// place buttons
 	std::vector<std::unique_ptr<SortieButton>> buttons;
 	int columNum = 4;
@@ -47,7 +53,7 @@ void Main()
 		for(int j = 0; j< columNum; j++)
 		{
 			auto rect = RectF{offsetx + (widthMargin + widthBody + widthMargin) * j,   offsety+ heightMargin + (heightMargin+ heightBody + heightMargin) * i, widthBody, heightBody};
-			buttons.push_back(std::make_unique<SortieButton>(gm,rect,font, j + i * columNum));
+			buttons.push_back(std::make_unique<SortieButton>(gm,shipContainer, rect,font, j + i * columNum));
 		}
 	}
 

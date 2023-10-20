@@ -2,6 +2,7 @@
 #include "../GameManager.h"
 #include "GameObject.h"
 #include "Ship.h"
+#include "ShipContainer.h"
 
 class SortieButton : GameObject
 {
@@ -10,13 +11,13 @@ private:
 	RectF rect_;
 	const Font& font_;
 	int index_;
-	std::vector<std::unique_ptr<Ship>> ships_;
+	ShipContainer& shipContainer_;
 	int logicId_;
 	int renderId_;
 
 public:
-	SortieButton(GameManager& gm, RectF rect, const Font& font, int index)
-		: gm_(gm), rect_(rect), index_(index), font_(font)
+	SortieButton(GameManager& gm,ShipContainer& ship_container, RectF rect, const Font& font, int index)
+		: gm_(gm),shipContainer_(ship_container), rect_(rect), index_(index), font_(font)
 	{
 		// Register functions and save their IDs
 		logicId_ = gm_.registerLogic([this]() { this->UpdateLogic(); });

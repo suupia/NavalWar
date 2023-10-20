@@ -1,4 +1,5 @@
-﻿#include "Ship.h"
+﻿#pragma once
+#include "Ship.h"
 
 class ShipContainer
 {
@@ -31,4 +32,6 @@ public:
 
 	void UpdateLogic();
 	void UpdateRender();
+	void AddShip(std::unique_ptr<Ship> ship);
+
 };
