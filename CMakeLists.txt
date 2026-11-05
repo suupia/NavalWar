@@ -20,7 +20,9 @@ add_executable(NavalWar
 	${GAME_DIR}/Main.cpp
 	${GAME_DIR}/GameManager.cpp
 	${GAME_DIR}/Font/FontSize.cpp
+	${GAME_DIR}/GameObjects/Base.cpp
 	${GAME_DIR}/GameObjects/Currency.cpp
+	${GAME_DIR}/GameObjects/EnemySpawner.cpp
 	${GAME_DIR}/GameObjects/GameObject.cpp
 	${GAME_DIR}/GameObjects/Ship.cpp
 	${GAME_DIR}/GameObjects/ShipContainer.cpp

@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include <memory>
+#include <vector>
+#include "Base.h"
 #include "Ship.h"
 
-/// 画面上部の領域に艦を保持し、まとめて更新・描画する。
+/// 味方と敵の艦をまとめて一度だけ更新・描画する。
 class ShipContainer
 {
 private:
@@ -10,27 +12,20 @@ private:
 	RectF rect_;
 	const Font& font_;
 	int index_;
+	Base& playerBase_;
+	Base& enemyBase_;
 	int logicId_;
 	int renderId_;
 	std::vector<std::unique_ptr<Ship>> ships_;
 
 public:
-	ShipContainer(GameManager& gm, RectF rect, const Font& font, int index)
-		: gm_(gm), rect_(rect), font_(font), index_(index)
-	{
-		logicId_ = gm_.registerLogic([this]() { this->UpdateLogic(); });
-		renderId_ = gm_.registerRender([this]() { this->UpdateRender(); });
-	}
+	ShipContainer(GameManager& gm, RectF rect, const Font& font, int index, Base& playerBase, Base& enemyBase);
+	~ShipContainer();
 
-	~ShipContainer()
-	{
-		Print << U"Destruct ShipContainer";
-		gm_.unregisterLogic(logicId_);
-		gm_.unregisterRender(renderId_);
-	}
+	ShipContainer(const ShipContainer&) = delete;
+	ShipContainer& operator=(const ShipContainer&) = delete;
 
 	void UpdateLogic();
 	void UpdateRender();
-	void AddShip(std::unique_ptr<Ship> ship);
-
+	void AddShip(Faction faction, const UnitStats& stats);
 };

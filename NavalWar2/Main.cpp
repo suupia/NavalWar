@@ -1,9 +1,12 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.16
 
 #include "GameManager.h"
+#include "GameObjects/Base.h"
+#include "GameObjects/EnemySpawner.h"
 #include "GameObjects/SortieButton.h"
 #include "GameObjects/Currency.h"
 #include "GameObjects/ShipContainer.h"
+#include "GameObjects/UnitStats.h"
 
 void Main()
 {
@@ -14,6 +17,7 @@ void Main()
 	constexpr int columnCount = 4;
 	constexpr int rowCount = 2;
 	constexpr double buttonFill = 8.0 / 10.0;
+	constexpr double baseHp = 2000.0;
 
 	if constexpr (windowWidth * 9 != windowHeight * 16)
 	{
@@ -26,7 +30,16 @@ void Main()
 	GameManager gm;
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 	Currency currency(gm, font, 0, 1.0);
-	ShipContainer shipContainer(gm, RectF{ 0, 0, Scene::Width(), shipAreaRatio * Scene::Height() }, font, 0);
+	Base playerBase(gm, font, Faction::Player, baseHp);
+	Base enemyBase(gm, font, Faction::Enemy, baseHp);
+	ShipContainer shipContainer(
+		gm,
+		RectF{ 0, 0, Scene::Width(), shipAreaRatio * Scene::Height() },
+		font,
+		0,
+		playerBase,
+		enemyBase);
+	EnemySpawner enemySpawner(gm, shipContainer, DefaultShipStats(), 4.0);
 
 	const double cellWidth = shipAreaRatio * Scene::Width() / columnCount;
 	const double cellHeight = buttonAreaRatio * Scene::Height() / rowCount;

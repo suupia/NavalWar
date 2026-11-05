@@ -144,7 +144,13 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\Base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameObjects\Currency.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\EnemySpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\GameObject.cpp">
@@ -833,7 +839,19 @@
     <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjects\Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GameObjects\Currency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\EnemySpawner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Lane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\UnitStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\GameObject.h">

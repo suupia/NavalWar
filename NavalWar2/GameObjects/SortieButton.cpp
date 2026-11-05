@@ -1,7 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "SortieButton.h"
-#include "Ship.h"
 #include "../Font/FontSize.h"
+#include "UnitStats.h"
 
 void SortieButton::UpdateLogic()
 {
@@ -13,8 +13,9 @@ void SortieButton::UpdateLogic()
 void SortieButton::UpdateRender()
 {
 	rect_.draw();
+	const int cost = DefaultShipStats().cost;
 	font_(U"index:{}"_fmt(index_)).draw(FontSize::GetFontSize(0), rect_.x , rect_.y , Palette::Black);
-	font_(U"cost:{}"_fmt(100)).draw(FontSize::GetFontSize(0), rect_.x , rect_.y + 30 , Palette::Black);
+	font_(U"cost:{}"_fmt(cost)).draw(FontSize::GetFontSize(0), rect_.x , rect_.y + 30 , Palette::Black);
 
 }
 void SortieButton::Click()
@@ -22,13 +23,13 @@ void SortieButton::Click()
 	if(rect_.leftClicked())
 	{
 		Print << U"Clicked index{}"_fmt(index_) ;
-		const int tmp_cost = 5;
-		if(currency_.GetAmount() < tmp_cost)
+		const UnitStats stats = DefaultShipStats();
+		if(currency_.GetAmount() < stats.cost)
 		{
 			Print << U"Not enough money";
 			return;
 		}
-		shipContainer_.AddShip(std::make_unique<Ship>(gm_, Vec2{0, 3.0/5.0 * Scene::Height()}));
-		currency_.AddAmount(-tmp_cost);
+		shipContainer_.AddShip(Faction::Player, stats);
+		currency_.AddAmount(-stats.cost);
 	}
 }
