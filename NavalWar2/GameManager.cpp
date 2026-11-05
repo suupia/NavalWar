@@ -1,22 +1,22 @@
 ﻿#include "GameManager.h"
 
 // コールバックの登録時にユニークなIDを返す
-int GameManager::registerLogic(const std::function<void()>& func) {
+int32 GameManager::registerLogic(const std::function<void()>& func) {
 	logicFunctions.emplace_back(func);
-	return static_cast<int>(logicFunctions.size()) - 1; // IDはインデックスとする
+	return static_cast<int32>(logicFunctions.size()) - 1; // IDはインデックスとする
 }
 
-int GameManager::registerRender(const std::function<void()>& func) {
+int32 GameManager::registerRender(const std::function<void()>& func) {
 	renderFunctions.emplace_back(func);
-	return static_cast<int>(renderFunctions.size()) - 1; // IDはインデックスとする
+	return static_cast<int32>(renderFunctions.size()) - 1; // IDはインデックスとする
 }
 
 // IDを使用して、特定のコールバックを削除する
-void GameManager::unregisterLogic(int id) {
+void GameManager::unregisterLogic(int32 id) {
 	logicFunctions[id] = nullptr; // 関数を無効にする
 }
 
-void GameManager::unregisterRender(int id) {
+void GameManager::unregisterRender(int32 id) {
 	renderFunctions[id] = nullptr; // 関数を無効にする
 }
 
