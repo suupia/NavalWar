@@ -122,6 +122,7 @@
     <ClCompile Include="GameObjects\EnemySpawner.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\IncomeButton.cpp" />
+    <ClCompile Include="GameObjects\Match.cpp" />
     <ClCompile Include="GameObjects\Ship.cpp" />
     <ClCompile Include="GameObjects\ShipContainer.cpp" />
     <ClCompile Include="GameObjects\SortieButton.cpp" />
@@ -343,6 +344,7 @@
     <ClInclude Include="GameObjects\EnemySpawner.h" />
     <ClInclude Include="GameObjects\IncomeButton.h" />
     <ClInclude Include="GameObjects\Lane.h" />
+    <ClInclude Include="GameObjects\Match.h" />
     <ClInclude Include="GameObjects\UnitCatalog.h" />
     <ClInclude Include="GameObjects\UnitStats.h" />
     <ClInclude Include="GameObjects\GameObject.h" />

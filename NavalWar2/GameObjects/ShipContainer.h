@@ -4,6 +4,8 @@
 #include "Base.h"
 #include "Ship.h"
 
+class Match;
+
 /// 味方と敵の艦を一度だけ進め、射程内なら攻撃させる。
 class ShipContainer
 {
@@ -14,12 +16,13 @@ private:
 	int index_;
 	Base& playerBase_;
 	Base& enemyBase_;
+	Match& match_;
 	int logicId_;
 	int renderId_;
 	std::vector<std::unique_ptr<Ship>> ships_;
 
 public:
-	ShipContainer(GameManager& gm, RectF rect, const Font& font, int index, Base& playerBase, Base& enemyBase);
+	ShipContainer(GameManager& gm, RectF rect, const Font& font, int index, Base& playerBase, Base& enemyBase, Match& match);
 	~ShipContainer();
 
 	ShipContainer(const ShipContainer&) = delete;
@@ -28,4 +31,5 @@ public:
 	void UpdateLogic();
 	void UpdateRender();
 	void AddShip(Faction faction, const UnitStats& stats);
+	void Clear();
 };

@@ -1,12 +1,14 @@
 ﻿#include "../stdafx.h"
 #include "EnemySpawner.h"
+#include "Match.h"
 #include "ShipContainer.h"
 #include "UnitCatalog.h"
 #include <algorithm>
 
-EnemySpawner::EnemySpawner(GameManager& gm, ShipContainer& ships)
+EnemySpawner::EnemySpawner(GameManager& gm, ShipContainer& ships, Match& match)
 	: gm_(gm)
 	, ships_(ships)
+	, match_(match)
 	, timer_(0.0)
 	, step_(0)
 {
@@ -20,6 +22,11 @@ EnemySpawner::~EnemySpawner()
 
 void EnemySpawner::UpdateLogic()
 {
+	if (!match_.IsPlaying())
+	{
+		return;
+	}
+
 	const std::vector<EnemySpawn>& schedule = EnemySchedule();
 	const std::vector<UnitStats>& types = EnemyUnitTypes();
 	if (schedule.empty() || types.empty())
