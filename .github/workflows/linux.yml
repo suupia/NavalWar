@@ -82,9 +82,14 @@ jobs:
         run: |
           ln -sfn "$GITHUB_WORKSPACE/.siv3d-install/resources" build/resources
           set +e
-          xvfb-run -a timeout 8 ./build/NavalWar
+          xvfb-run -a timeout 20 ./build/NavalWar > smoke.log 2>&1
           code=$?
           set -e
+          cat smoke.log
+          if ! grep -q "renderer:" smoke.log; then
+            echo "Siv3D did not report a renderer"
+            exit 1
+          fi
           if [ "$code" -ne 124 ] && [ "$code" -ne 0 ]; then
             exit "$code"
           fi
