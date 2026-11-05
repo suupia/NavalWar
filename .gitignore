@@ -369,6 +369,7 @@ xcuserdata/
 
 # CMake
 # https://github.com/github/gitignore/blob/master/CMake.gitignore
+/build/
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles

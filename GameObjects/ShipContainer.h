@@ -1,6 +1,8 @@
 ﻿#pragma once
+#include <memory>
 #include "Ship.h"
 
+/// 画面上部の領域に艦を保持し、まとめて更新・描画する。
 class ShipContainer
 {
 private:
@@ -14,21 +16,18 @@ private:
 
 public:
 	ShipContainer(GameManager& gm, RectF rect, const Font& font, int index)
-		: gm_(gm), rect_(rect), index_(index), font_(font)
+		: gm_(gm), rect_(rect), font_(font), index_(index)
 	{
-		// Register functions and save their IDs
 		logicId_ = gm_.registerLogic([this]() { this->UpdateLogic(); });
 		renderId_ = gm_.registerRender([this]() { this->UpdateRender(); });
 	}
 
 	~ShipContainer()
 	{
-		// Unregister the callbacks in the destructor
-		Print << U"Destruct SortieButton";
+		Print << U"Destruct ShipContainer";
 		gm_.unregisterLogic(logicId_);
 		gm_.unregisterRender(renderId_);
-
-}
+	}
 
 	void UpdateLogic();
 	void UpdateRender();
