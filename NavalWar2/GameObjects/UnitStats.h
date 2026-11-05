@@ -7,7 +7,7 @@ enum class Faction
 	Enemy,
 };
 
-/// 艦の性能。攻撃の数値は戦闘を入れる段階で使う。
+/// 艦の性能。コストとクールダウンは出撃ボタンが使う。
 struct UnitStats
 {
 	String name;
@@ -20,19 +20,3 @@ struct UnitStats
 	double attackInterval;
 	double speed;
 };
-
-/// ボタンがまだ 1 種類だけのときの艦性能。
-inline UnitStats DefaultShipStats()
-{
-	return UnitStats{
-		U"艦",
-		U"🚢",
-		5,
-		0.0,
-		120.0,
-		15.0,
-		160.0,
-		1.0,
-		100.0,
-	};
-}

@@ -24,6 +24,7 @@ add_executable(NavalWar
 	${GAME_DIR}/GameObjects/Currency.cpp
 	${GAME_DIR}/GameObjects/EnemySpawner.cpp
 	${GAME_DIR}/GameObjects/GameObject.cpp
+	${GAME_DIR}/GameObjects/IncomeButton.cpp
 	${GAME_DIR}/GameObjects/Ship.cpp
 	${GAME_DIR}/GameObjects/ShipContainer.cpp
 	${GAME_DIR}/GameObjects/SortieButton.cpp

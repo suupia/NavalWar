@@ -153,6 +153,9 @@
     <ClCompile Include="GameObjects\EnemySpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\IncomeButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameObjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -840,6 +843,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\BattleBalance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\IncomeButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\UnitCatalog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\Currency.h">

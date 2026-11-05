@@ -7,6 +7,11 @@ void Currency::UpdateLogic()
 }
 void Currency::UpdateRender()
 {
-	font_(U"{:.1f}"_fmt(amount_)).draw(30, 3.0 / 5.0 * Scene::Width() , 3.0 / 5.0 * Scene::Height(), Palette::Black);
+	font_(U"{:.0f}  +{:.0f}/s"_fmt(amount_, amountPerSecond_)).draw(28, 24, 16, Palette::Black);
+}
 
+void Currency::Reset(double amount, double amountPerSecond)
+{
+	amount_ = amount;
+	amountPerSecond_ = amountPerSecond;
 }

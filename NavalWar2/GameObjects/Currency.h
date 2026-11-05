@@ -30,6 +30,9 @@ public:
 	void UpdateLogic();
 	void UpdateRender();
 	double GetAmount() const { return amount_; }
+	double GetAmountPerSecond() const { return amountPerSecond_; }
 	double SetAmount(double amount) { return amount_ = amount; }
 	void AddAmount(double amount) { amount_ += amount; }
+	void AddAmountPerSecond(double amount) { amountPerSecond_ += amount; }
+	void Reset(double amount, double amountPerSecond);
 };
