@@ -1,6 +1,8 @@
 ﻿#include "../stdafx.h"
 #include "ShipContainer.h"
 #include "Lane.h"
+#include <algorithm>
+#include <limits>
 
 ShipContainer::ShipContainer(GameManager& gm, RectF rect, const Font& font, int index, Base& playerBase, Base& enemyBase)
 	: gm_(gm)
@@ -23,14 +25,86 @@ ShipContainer::~ShipContainer()
 
 void ShipContainer::UpdateLogic()
 {
-	for (const auto& ship : ships_)
+	const double dt = Scene::DeltaTime();
+	const size_t count = ships_.size();
+	std::vector<double> pending(count, 0.0);
+	double playerBaseDamage = 0.0;
+	double enemyBaseDamage = 0.0;
+
+	for (size_t i = 0; i < count; ++i)
 	{
-		ship->UpdateLogic();
-		const double limit = (ship->GetFaction() == Faction::Player)
+		Ship& ship = *ships_[i];
+		if (!ship.IsAlive())
+		{
+			continue;
+		}
+
+		double bestGap = std::numeric_limits<double>::infinity();
+		size_t target = count;
+		for (size_t j = 0; j < count; ++j)
+		{
+			if (i == j || !ships_[j]->IsAlive() || ships_[j]->GetFaction() == ship.GetFaction())
+			{
+				continue;
+			}
+			const double gap = ship.GapToFront(ships_[j]->FrontX());
+			if (gap < -1.0 || gap >= bestGap)
+			{
+				continue;
+			}
+			bestGap = gap;
+			target = j;
+		}
+
+		const Base& opposingBase = (ship.GetFaction() == Faction::Player) ? enemyBase_ : playerBase_;
+		const double baseGap = ship.GapToFront(opposingBase.FrontX());
+		const bool attackBase = baseGap < bestGap;
+		if (attackBase)
+		{
+			bestGap = baseGap;
+		}
+
+		if (bestGap <= ship.GetRange())
+		{
+			if (ship.TryFire(dt))
+			{
+				if (attackBase)
+				{
+					if (ship.GetFaction() == Faction::Player)
+					{
+						enemyBaseDamage += ship.GetAttack();
+					}
+					else
+					{
+						playerBaseDamage += ship.GetAttack();
+					}
+				}
+				else if (target < count)
+				{
+					pending[target] += ship.GetAttack();
+				}
+			}
+		}
+		else
+		{
+			const double step = std::min(ship.GetSpeed() * dt, bestGap - ship.GetRange());
+			ship.MoveForward(step);
+		}
+
+		const double limit = (ship.GetFaction() == Faction::Player)
 			? enemyBase_.FrontX()
 			: playerBase_.FrontX();
-		ship->ClampToFront(limit);
+		ship.ClampToFront(limit);
 	}
+
+	for (size_t i = 0; i < count; ++i)
+	{
+		ships_[i]->Damage(pending[i]);
+	}
+	playerBase_.Damage(playerBaseDamage);
+	enemyBase_.Damage(enemyBaseDamage);
+
+	std::erase_if(ships_, [](const std::unique_ptr<Ship>& ship) { return !ship->IsAlive(); });
 }
 
 void ShipContainer::UpdateRender()

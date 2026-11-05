@@ -9,13 +9,13 @@ Ship::Ship(Faction faction, const UnitStats& stats, double x, double y)
 	, texture_(Emoji{ stats.emoji })
 	, pos_(x, y)
 	, hp_(stats.maxHp)
+	, attackTimer_(0.0)
+	, flash_(0.0)
 {
 }
 
 void Ship::UpdateLogic()
 {
-	const double direction = (faction_ == Faction::Player) ? 1.0 : -1.0;
-	pos_.x += direction * stats_.speed * Scene::DeltaTime();
 }
 
 void Ship::UpdateRender()
@@ -33,12 +33,57 @@ void Ship::UpdateRender()
 	RectF{ barPos, barWidth, 6 }.draw(ColorF{ 0.15 });
 	RectF{ barPos, barWidth * ratio, 6 }.draw(
 		faction_ == Faction::Player ? Palette::Deepskyblue : Palette::Orange);
+
+	if (flash_ > 0.0)
+	{
+		Circle{ FrontX(), pos_.y - 36.0, 8 }.draw(Palette::Yellow);
+		flash_ = std::max(0.0, flash_ - Scene::DeltaTime());
+	}
 }
 
 double Ship::FrontX() const
 {
 	const double half = Lane::UnitWidth / 2.0;
 	return (faction_ == Faction::Player) ? (pos_.x + half) : (pos_.x - half);
+}
+
+double Ship::GapToFront(double frontX) const
+{
+	return (faction_ == Faction::Player) ? (frontX - FrontX()) : (FrontX() - frontX);
+}
+
+void Ship::MoveForward(double distance)
+{
+	if (distance <= 0.0)
+	{
+		return;
+	}
+	pos_.x += (faction_ == Faction::Player) ? distance : -distance;
+}
+
+bool Ship::TryFire(double dt)
+{
+	attackTimer_ -= dt;
+	if (attackTimer_ > 0.0)
+	{
+		return false;
+	}
+	attackTimer_ += stats_.attackInterval;
+	if (attackTimer_ < 0.0)
+	{
+		attackTimer_ = stats_.attackInterval;
+	}
+	flash_ = 0.12;
+	return true;
+}
+
+void Ship::Damage(double amount)
+{
+	if (amount <= 0.0)
+	{
+		return;
+	}
+	hp_ = std::max(0.0, hp_ - amount);
 }
 
 void Ship::ClampToFront(double limit)

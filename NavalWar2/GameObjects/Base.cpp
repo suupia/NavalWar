@@ -40,3 +40,12 @@ double Base::FrontX() const
 {
 	return (faction_ == Faction::Player) ? Lane::PlayerFrontX() : Lane::EnemyFrontX();
 }
+
+void Base::Damage(double amount)
+{
+	if (amount <= 0.0)
+	{
+		return;
+	}
+	hp_ = std::max(0.0, hp_ - amount);
+}
