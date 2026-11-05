@@ -1,12 +1,18 @@
 name: Linux
 
+# pull_request only, so opening or updating a PR builds once.
+# The OpenSiv3D install is cached for reruns of that same PR.
 on:
-  push:
   pull_request:
+
+concurrency:
+  group: linux-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
