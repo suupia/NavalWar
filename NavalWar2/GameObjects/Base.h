@@ -2,7 +2,7 @@
 #include "../GameManager.h"
 #include "UnitStats.h"
 
-/// 画面端の拠点。HP を表示し、艦は前面より先へ進まない。
+/// 画面端の拠点。HP を持ち、射程内の艦から攻撃を受ける。
 class Base
 {
 private:
@@ -25,4 +25,5 @@ public:
 	double GetHp() const { return hp_; }
 	double GetMaxHp() const { return maxHp_; }
 	double FrontX() const;
+	void Damage(double amount);
 };

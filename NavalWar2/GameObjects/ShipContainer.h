@@ -4,7 +4,7 @@
 #include "Base.h"
 #include "Ship.h"
 
-/// 味方と敵の艦をまとめて一度だけ更新・描画する。
+/// 味方と敵の艦を一度だけ進め、射程内なら攻撃させる。
 class ShipContainer
 {
 private:
