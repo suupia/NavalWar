@@ -1,34 +1,25 @@
 ﻿#pragma once
-#include "../GameManager.h"
 #include "GameObject.h"
+#include "UnitStats.h"
 
-/// 右へ進む艦。生成時に GameManager へ更新処理を登録する。
+/// レーンを進む艦。自身ではコールバックを登録せず、ShipContainer が一度だけ更新する。
 class Ship : public GameObject
 {
 private:
-	GameManager& gm_;
+	Faction faction_;
+	UnitStats stats_;
 	Texture texture_;
 	Vec2 pos_;
-	int speed_;
-	int cost_;
-	int logicId_;
-	int renderId_;
+	double hp_;
 
 public:
-	Ship(GameManager& gm, const Vec2& pos)
-	   : gm_(gm), texture_(U"🚢"_emoji), pos_(pos), speed_(100), cost_(10)
-	{
-		logicId_ = gm_.registerLogic([&]() { this->UpdateLogic(); });
-		renderId_ = gm_.registerRender([&]() { this->UpdateRender(); });
-	}
-
-	~Ship() override
-	{
-		Print << U"Destruct Ship";
-		gm_.unregisterLogic(logicId_);
-		gm_.unregisterRender(renderId_);
-	}
+	Ship(Faction faction, const UnitStats& stats, double x, double y);
 
 	void UpdateLogic() override;
 	void UpdateRender() override;
+
+	Faction GetFaction() const { return faction_; }
+	double GetHp() const { return hp_; }
+	double FrontX() const;
+	void ClampToFront(double limit);
 };

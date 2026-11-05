@@ -117,7 +117,9 @@
   <ItemGroup>
     <ClCompile Include="Font\FontSize.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameObjects\Base.cpp" />
     <ClCompile Include="GameObjects\Currency.cpp" />
+    <ClCompile Include="GameObjects\EnemySpawner.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Ship.cpp" />
     <ClCompile Include="GameObjects\ShipContainer.cpp" />
@@ -334,7 +336,11 @@
   <ItemGroup>
     <ClInclude Include="Font\FontSize.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameObjects\Base.h" />
     <ClInclude Include="GameObjects\Currency.h" />
+    <ClInclude Include="GameObjects\EnemySpawner.h" />
+    <ClInclude Include="GameObjects\Lane.h" />
+    <ClInclude Include="GameObjects\UnitStats.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Ship.h" />
     <ClInclude Include="GameObjects\ShipContainer.h" />
