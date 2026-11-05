@@ -414,3 +414,7 @@ gmon.out
 #**/App/example
 #**/App/engine
 #**/App/dll
+
+# Linux CMake build and the cached OpenSiv3D prefix
+/build/
+.siv3d-install/
