@@ -1,37 +1,50 @@
+#include "stdafx.h"
 #include "GameManager.h"
 
-// コールバックの登録時にユニークなIDを返す
+namespace {
+
+int registerCallback(std::vector<std::function<void()>>& callbacks, const std::function<void()>& func) {
+	callbacks.emplace_back(func);
+	return static_cast<int>(callbacks.size()) - 1;
+}
+
+void unregisterCallback(std::vector<std::function<void()>>& callbacks, int id) {
+	if (id < 0 || static_cast<size_t>(id) >= callbacks.size()) {
+		return;
+	}
+	callbacks[id] = nullptr;
+}
+
+void updateCallbacks(const std::vector<std::function<void()>>& callbacks) {
+	for (const auto& func : callbacks) {
+		if (func) {
+			func();
+		}
+	}
+}
+
+}
+
 int GameManager::registerLogic(const std::function<void()>& func) {
-	logicFunctions.emplace_back(func);
-	return logicFunctions.size() - 1; // IDはインデックスとする
+	return registerCallback(logicFunctions, func);
 }
 
 int GameManager::registerRender(const std::function<void()>& func) {
-	renderFunctions.emplace_back(func);
-	return renderFunctions.size() - 1; // IDはインデックスとする
+	return registerCallback(renderFunctions, func);
 }
 
-// IDを使用して、特定のコールバックを削除する
 void GameManager::unregisterLogic(int id) {
-	logicFunctions[id] = nullptr; // 関数を無効にする
+	unregisterCallback(logicFunctions, id);
 }
 
 void GameManager::unregisterRender(int id) {
-	renderFunctions[id] = nullptr; // 関数を無効にする
+	unregisterCallback(renderFunctions, id);
 }
 
 void GameManager::updateLogic() {
-	for (const auto& func : logicFunctions) {
-		if (func) {
-			func();
-		}
-	}
+	updateCallbacks(logicFunctions);
 }
 
 void GameManager::updateRender() {
-	for (const auto& func : renderFunctions) {
-		if (func) {
-			func();
-		}
-	}
+	updateCallbacks(renderFunctions);
 }

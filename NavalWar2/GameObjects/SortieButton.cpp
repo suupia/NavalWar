@@ -4,12 +4,12 @@
 #include "../Font/FontSize.h"
 
 void SortieButton::UpdateLogic()
- {
-	if(rect_.leftClicked())
+{
+	if (rect_.leftClicked())
 	{
 		Print << U"Button Logic index{}"_fmt(index_);
 	}
- }
+}
 void SortieButton::UpdateRender()
 {
 	rect_.draw();

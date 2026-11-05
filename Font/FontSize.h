@@ -1,7 +1,9 @@
 ﻿#pragma once
 
-static class FontSize
+/// 解像度向けのフォントサイズをキーで返すユーティリティ。
+class FontSize
 {
 public:
-	static  int GetFontSize(int key);
+	/// キー 0, 1, 2 を小・中・大のフォントサイズ (px) に変換する。
+	static int GetFontSize(int key);
 };
