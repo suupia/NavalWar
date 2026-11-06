@@ -26,4 +26,5 @@ public:
 	double GetMaxHp() const { return maxHp_; }
 	double FrontX() const;
 	void Damage(double amount);
+	void Reset();
 };

@@ -10,12 +10,13 @@ private:
 	const Font& font_;
 	double amount_;
 	double amountPerSecond_;
+	bool active_;
 	int logicId_;
 	int renderId_;
 
 public:
 	Currency(GameManager& gm, const Font& font, double amount, double amountPerSecond)
-		: gm_(gm), font_(font), amount_(amount), amountPerSecond_(amountPerSecond)
+		: gm_(gm), font_(font), amount_(amount), amountPerSecond_(amountPerSecond), active_(true)
 	{
 		logicId_ = gm_.registerLogic([&]() { this->UpdateLogic(); });
 		renderId_ = gm_.registerRender([&]() { this->UpdateRender(); });
@@ -34,5 +35,6 @@ public:
 	double SetAmount(double amount) { return amount_ = amount; }
 	void AddAmount(double amount) { amount_ += amount; }
 	void AddAmountPerSecond(double amount) { amountPerSecond_ += amount; }
+	void SetActive(bool active) { active_ = active; }
 	void Reset(double amount, double amountPerSecond);
 };

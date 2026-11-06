@@ -6,6 +6,7 @@
 #include "GameObjects/Currency.h"
 #include "GameObjects/EnemySpawner.h"
 #include "GameObjects/IncomeButton.h"
+#include "GameObjects/Match.h"
 #include "GameObjects/ShipContainer.h"
 #include "GameObjects/SortieButton.h"
 #include "GameObjects/UnitCatalog.h"
@@ -33,14 +34,16 @@ void Main()
 	Currency currency(gm, font, BattleBalance::StartingMoney, BattleBalance::IncomePerSecond);
 	Base playerBase(gm, font, Faction::Player, BattleBalance::PlayerBaseHp);
 	Base enemyBase(gm, font, Faction::Enemy, BattleBalance::EnemyBaseHp);
+	Match match(gm, playerBase, enemyBase, font);
 	ShipContainer shipContainer(
 		gm,
 		RectF{ 0, 0, Scene::Width(), shipAreaRatio * Scene::Height() },
 		font,
 		0,
 		playerBase,
-		enemyBase);
-	EnemySpawner enemySpawner(gm, shipContainer);
+		enemyBase,
+		match);
+	EnemySpawner enemySpawner(gm, shipContainer, match);
 
 	const double cellWidth = shipAreaRatio * Scene::Width() / columnCount;
 	const double cellHeight = buttonAreaRatio * Scene::Height() / rowCount;
@@ -80,16 +83,39 @@ void Main()
 	{
 		RectF{ 0, buttonsTop, Scene::Width(), buttonAreaRatio * Scene::Height() }.draw(Palette::Lightslategray);
 
-		for (auto& button : buttons)
+		currency.SetActive(match.IsPlaying());
+		if (match.IsPlaying())
 		{
-			button->Click();
+			for (auto& button : buttons)
+			{
+				button->Click();
+			}
+			if (income)
+			{
+				income->Click();
+			}
 		}
-		if (income)
+		else if (match.RestartClicked())
 		{
-			income->Click();
+			playerBase.Reset();
+			enemyBase.Reset();
+			shipContainer.Clear();
+			currency.Reset(BattleBalance::StartingMoney, BattleBalance::IncomePerSecond);
+			for (auto& button : buttons)
+			{
+				button->ResetCooldown();
+			}
+			if (income)
+			{
+				income->Reset();
+			}
+			enemySpawner.Reset();
+			match.Reset();
+			currency.SetActive(true);
 		}
 
 		gm.updateLogic();
 		gm.updateRender();
+		match.DrawOverlay();
 	}
 }

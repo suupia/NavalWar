@@ -49,3 +49,8 @@ void Base::Damage(double amount)
 	}
 	hp_ = std::max(0.0, hp_ - amount);
 }
+
+void Base::Reset()
+{
+	hp_ = maxHp_;
+}

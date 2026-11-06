@@ -1,16 +1,18 @@
 ﻿#include "../stdafx.h"
 #include "ShipContainer.h"
 #include "Lane.h"
+#include "Match.h"
 #include <algorithm>
 #include <limits>
 
-ShipContainer::ShipContainer(GameManager& gm, RectF rect, const Font& font, int index, Base& playerBase, Base& enemyBase)
+ShipContainer::ShipContainer(GameManager& gm, RectF rect, const Font& font, int index, Base& playerBase, Base& enemyBase, Match& match)
 	: gm_(gm)
 	, rect_(rect)
 	, font_(font)
 	, index_(index)
 	, playerBase_(playerBase)
 	, enemyBase_(enemyBase)
+	, match_(match)
 {
 	logicId_ = gm_.registerLogic([this]() { this->UpdateLogic(); });
 	renderId_ = gm_.registerRender([this]() { this->UpdateRender(); });
@@ -25,6 +27,11 @@ ShipContainer::~ShipContainer()
 
 void ShipContainer::UpdateLogic()
 {
+	if (!match_.IsPlaying())
+	{
+		return;
+	}
+
 	const double dt = Scene::DeltaTime();
 	const size_t count = ships_.size();
 	std::vector<double> pending(count, 0.0);
@@ -103,8 +110,14 @@ void ShipContainer::UpdateLogic()
 	}
 	playerBase_.Damage(playerBaseDamage);
 	enemyBase_.Damage(enemyBaseDamage);
+	match_.Evaluate();
 
 	std::erase_if(ships_, [](const std::unique_ptr<Ship>& ship) { return !ship->IsAlive(); });
+}
+
+void ShipContainer::Clear()
+{
+	ships_.clear();
 }
 
 void ShipContainer::UpdateRender()
