@@ -24,7 +24,14 @@ void Ship::UpdateRender()
 		? ColorF{ 0.25, 0.55, 0.95 }
 		: ColorF{ 0.9, 0.32, 0.25 };
 	Circle{ pos_.x, pos_.y - 30, 18 }.draw(hull);
-	texture_.draw(Arg::bottomCenter(pos_));
+	if (faction_ == Faction::Player)
+	{
+		texture_.mirrored().draw(Arg::bottomCenter(pos_));
+	}
+	else
+	{
+		texture_.draw(Arg::bottomCenter(pos_));
+	}
 
 	const double ratio = (stats_.maxHp <= 0.0) ? 0.0 : std::clamp(hp_ / stats_.maxHp, 0.0, 1.0);
 	constexpr double barWidth = 48.0;

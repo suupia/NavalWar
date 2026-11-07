@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "UnitStats.h"
 
-/// レーンを進む艦。射程に入ると止まり、攻撃する。
+/// レーンを進む艦。射程に入ると止まり、攻撃する。味方の絵だけ左右反転する。
 class Ship : public GameObject
 {
 private:
